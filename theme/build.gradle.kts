@@ -1,23 +1,16 @@
-import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.android.library)
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.compose.multiplatform)
+    id("maven-publish")
 }
 
 kotlin {
     jvm()
-    androidTarget {
-        publishLibraryVariants("release")
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_21)
-        }
-    }
+    androidTarget()
 
     sourceSets {
         androidMain.dependencies {
@@ -81,4 +74,14 @@ compose.resources {
     publicResClass = true
     packageOfResClass = "com.cacaosd.uikit.theme.resources"
     generateResClass = auto
+}
+
+publishing {
+    publications.withType<MavenPublication> {
+        artifactId = "uikit-theme"
+        pom {
+            name.set("multiplatform-uikit-theme")
+            description.set("A theming library for multiplatform Compose UI applications.")
+        }
+    }
 }
