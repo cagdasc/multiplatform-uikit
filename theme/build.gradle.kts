@@ -80,9 +80,5 @@ publishing {
     publications.withType<MavenPublication> {
         groupId = "com.github.cagdasc"
         artifactId = "uikit-theme"
-
-        afterEvaluate {
-            from(components["release"])
-        }
     }
 }
