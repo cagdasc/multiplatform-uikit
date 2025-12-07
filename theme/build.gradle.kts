@@ -78,9 +78,11 @@ compose.resources {
 
 publishing {
     publications.withType<MavenPublication> {
-        pom {
-            name.set("multiplatform-uikit-theme")
-            description.set("A theming library for multiplatform Compose UI applications.")
+        groupId = "com.github.cagdasc"
+        artifactId = "uikit-theme"
+
+        afterEvaluate {
+            from(components["release"])
         }
     }
 }
